@@ -25,4 +25,18 @@ const vendorRegister = async(req,res) => {
 
     }
 }
-module.exports = {vendorRegister};
+
+    const vendorLogin = async (req,res) => {
+        const {email,password} = req.body;
+        try{
+          const vendor = await Vendor.findOne({email})
+          if(!vendor || !(await bcrypt.compare(password, vendor.password)))
+            return res.status(401).json({message:"login failed"})
+            console.log(email)
+        }catch(error){
+           
+
+        }
+    }
+
+module.exports = {vendorRegister,vendorLogin};
